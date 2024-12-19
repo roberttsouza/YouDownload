@@ -1,19 +1,19 @@
 # -*- mode: python ; coding: utf-8 -*-
 
 
-a = Analysis(['baixar_videos.py'],
-             pathex=['caminho/para/seu/script'],
-             binaries=[],
-             datas=[],
-             hiddenimports=['babel.numbers'],  # Adicione esta linha
-             hookspath=[],
-             runtime_hooks=[],
-             excludes=[],
-             win_no_prefer_redirects=False,
-             win_private_assemblies=False,
-             cipher=None,
-             noarchive=False)
-
+a = Analysis(
+    ['baixar_videos.py'],
+    pathex=[],
+    binaries=[],
+    datas=[],
+    hiddenimports=[],
+    hookspath=[],
+    hooksconfig={},
+    runtime_hooks=[],
+    excludes=[],
+    noarchive=False,
+    optimize=0,
+)
 pyz = PYZ(a.pure)
 
 exe = EXE(
@@ -21,9 +21,9 @@ exe = EXE(
     a.scripts,
     a.binaries,
     a.datas,
-    [('v', None, 'OPTION')],
+    [],
     name='baixar_videos',
-    debug=True,
+    debug=False,
     bootloader_ignore_signals=False,
     strip=False,
     upx=True,

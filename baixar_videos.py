@@ -1,4 +1,3 @@
-import babel
 import yt_dlp
 import tkinter as tk
 from tkinter import filedialog, messagebox, ttk
@@ -88,6 +87,19 @@ def baixar_video_especifico(video_url, pasta_destino, audio_only, qualidade):
         }
 
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+        # Tentar obter a lista de formatos disponíveis
+        info_dict = ydl.extract_info(video_url, download=False)
+        available_formats = info_dict.get('formats', [])
+        
+        if not available_formats:
+            messagebox.showerror("Erro", "Nenhum formato disponível para este vídeo.")
+            return
+        
+        # Exibir os formatos disponíveis para debug
+        for format in available_formats:
+            print(f"ID: {format['format_id']}, Resolução: {format.get('height', 'N/A')}, Extensão: {format['ext']}")
+
+        # Iniciar o download
         ydl.download([video_url])
 
 def escolher_pasta_canal():
